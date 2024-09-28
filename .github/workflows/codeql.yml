@@ -14,13 +14,16 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       security-events: write
+      packages: read
+      actions: read
+      contents: read
 
     strategy:
       fail-fast: false
       matrix:
         include:
         - language: java-kotlin
-          build-mode: manual
+          build-mode: manual 
 
     steps:
     - name: Checkout repository
@@ -33,9 +36,7 @@ jobs:
         build-mode: ${{ matrix.build-mode }}
 
     - if: matrix.build-mode == 'manual'
-      shell: bash
-      run: |
-        mvn clean install  # Cambia questo in base alla tua configurazione di build
+      run: mvn clean install
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
