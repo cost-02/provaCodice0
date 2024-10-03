@@ -42,3 +42,10 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{matrix.language}}"
+
+    - name: Upload SARIF file as an artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: CodeQL-SARIF
+        path: ./**/*.sarif
+
